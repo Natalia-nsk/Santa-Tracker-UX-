@@ -1,0 +1,19 @@
+stateDiagram-v2
+    [*] --> Input
+
+    Input --> Validation
+
+    Validation --> AttemptFailed: invalid
+    AttemptFailed --> Validation: retry (<3)
+    AttemptFailed --> Locked: 3 failures
+
+    Validation --> Scenario: valid
+
+    Scenario --> BusinessTrue
+    Scenario --> BusinessFalse
+
+    BusinessTrue --> Visual
+    BusinessFalse --> Visual
+
+    Visual --> SessionEnd
+    Locked --> SessionEnd
